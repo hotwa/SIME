@@ -98,5 +98,5 @@ if __name__ == '__main__':
     app.config['TEMPLATES_AUTO_RELOAD']=True        #forces flask to reload html templates
     app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0     #prevents browsers from caching static files served by flask, such as js code
 
-    app.run(debug=True,use_reloader=True)
+    app.run(host='0.0.0.0', debug=True,use_reloader=True)
     #app.run(host='0.0.0.0',use_reloader=True)
