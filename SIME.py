@@ -38,7 +38,9 @@ class SIME:
         self.enumerate_all_sugars    = enumerate_all_sugars
         date_stamp                   = datetime.datetime.utcnow().strftime("%Y-%m-%d-%H-%M-%S")
         self.smile_file_name         = 'LIBRARIES/'+date_stamp+'_mcrl'
-
+        libraries_dir = 'LIBRARIES/'
+        if not os.path.exists(libraries_dir):
+            os.makedirs(libraries_dir)
         self.info_manager = open(self.smile_file_name + '_info','a+')
         self.info_manager.write(f'Desired Library Size (numbers only) : {self.library_size}\n')
         self.info_manager.write(f'Maximum occurrence of the same structural motifs per scaffold (number only) : {self.max_repeat_motifs}\n')
