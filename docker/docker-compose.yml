@@ -11,7 +11,7 @@ services:
     image: hotwa/sime:latest
     container_name: smi_mol
     volumes:
-      - ../test:/app/SIME/test
+      - ../LIBRARIES:/app/SIME/LIBRARIES
     # profiles:
     #   - production
     #   - testing
