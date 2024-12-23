@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args: 
+        CUDA_VERSION: 12.4.1
+        # HTTPS_PROXY: http://127.0.0.1:10809
+        # HTTP_PROXY: http://127.0.0.1:10809
+    image: hotwa/sime:latest
+    container_name: smi_mol
+    volumes:
+      - ../test:/app/SIME/test
+    # profiles:
+    #   - production
+    #   - testing
+    ports:
+      - 5000:5000
+    command: >
+      micromamba run -n SIME python main.py
+
+# docker-compose --profile production up -d
+# docker-compose --profile production -f docker-compose.yml build
+# docker-compose --profile production -f docker-compose.yml up -d
