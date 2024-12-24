@@ -10,11 +10,12 @@ services:
         # HTTP_PROXY: http://127.0.0.1:10809
     image: hotwa/sime:latest
     container_name: smi_mol
-    volumes:
-      - ../LIBRARIES:/app/SIME/LIBRARIES
-    # profiles:
-    #   - production
-    #   - testing
+    # volumes:
+    #   - ../LIBRARIES:/app/SIME/LIBRARIES:rw
+    # user: "57439:57439"
+    profiles:
+      - production
+      - testing
     ports:
       - 5000:5000
     command: >
@@ -23,3 +24,5 @@ services:
 # docker-compose --profile production up -d
 # docker-compose --profile production -f docker-compose.yml build
 # docker-compose --profile production -f docker-compose.yml up -d
+# docker cp smi_mol:/app/SIME/LIBRARIES/ ../LIBRARIES
+# docker cp smi_mol:/app/SIME/LIBRARIES/2024-12-24-02-19-29_mcrl_info ../LIBRARIES

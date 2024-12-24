@@ -31,6 +31,8 @@ micromamba create -n ${MAMBA_ENV_NAME} python=${PYTHON_VERSION} -y
 echo "mamba activate ${MAMBA_ENV_NAME}" >> /home/mambauser/.bashrc
 git clone https://github.com/hotwa/SIME
 cd /app/SIME
+mkdir -p /app/SIME/LIBRARIES
+mkdir -p /app/SIME/uploads
 micromamba run -n ${MAMBA_ENV_NAME} pip install -r requirements.txt
 micromamba run -n ${MAMBA_ENV_NAME} pip install ipython rdkit
 EOT
