@@ -1,0 +1,41 @@
+Bootstrap: docker
+From: mambaorg/micromamba:debian12-slim
+
+
+%environment
+    export ROOT_PASSWD="micromamba"
+    export MAMBA_ENV_NAME="SIME"
+    export PYTHON_VERSION="3.8"
+    export HTTP_PROXY=""
+    export HTTPS_PROXY=""
+
+
+%post
+    # 安装必要的软件
+    apt update
+    apt install -y vim git sudo bash-completion wget curl htop jq bzip2 npm unzip libz-dev libgomp1 libblas-dev liblapack-dev libzmq3-dev libjpeg-dev zlib1g-dev libpng-dev libfreetype6-dev libcairo2-dev pkg-config
+
+    # 配置用户权限
+    echo "mambauser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+    echo "mambauser:micromamba" | chpasswd
+
+    # 切换到用户 mambauser 并配置环境
+    su - mambauser -c 'bash -c "
+    echo alias conda=micromamba >> ~/.bashrc
+    echo alias mamba=micromamba >> ~/.bashrc
+    micromamba create -n ${MAMBA_ENV_NAME} python=${PYTHON_VERSION} -y
+    echo mamba activate ${MAMBA_ENV_NAME} >> ~/.bashrc
+    git clone https://github.com/hotwa/SIME /app/SIME
+    mkdir -p /app/SIME/LIBRARIES /app/SIME/uploads
+    micromamba run -n ${MAMBA_ENV_NAME} pip install -r /app/SIME/requirements.txt
+    micromamba run -n ${MAMBA_ENV_NAME} pip install ipython rdkit
+    "'
+
+%labels
+    Author hotwa
+    Version 1.0
+
+%runscript
+    exec micromamba run -n ${MAMBA_ENV_NAME} python /app/SIME/main.py
+
+
