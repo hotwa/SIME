@@ -1,6 +1,6 @@
 
-ARG CUDA_VERSION='12.4.1'
-FROM mambaorg/micromamba:cuda${CUDA_VERSION}-ubuntu22.04
+# ARG CUDA_VERSION='12.4.1'
+FROM mambaorg/micromamba:latest
 ARG ROOT_PASSWD="micromamba"
 ENV ROOT_PASSWD=${ROOT_PASSWD}
 ARG HTTPS_PROXY=""
