@@ -188,11 +188,11 @@ class SIME:
         max_per_file = 1000000
         file_counter = 1
         written      = []
-        for item in product(*template):
-            if self.max_occurrence(list(item))[1] <= self.max_repeat_motifs: # If the count of most common SM is less than or equal to the number set up by the user
+        for item in product(*template): # 使用笛卡尔积枚举所有模板的组合
+            if self.max_occurrence(list(item))[1] <= self.max_repeat_motifs:# 确保用户定义的重复约束 # If the count of most common SM is less than or equal to the number set up by the user
                 if self.library_size <= max_per_file:
                     if self.total_numcompounds <= self.library_size:
-                        temp = ''.join([str(r) for r in item])
+                        temp = ''.join([str(r) for r in item]) # 将片段组合成字符串
                         self.total_numcompounds += 1
                         written.append(temp)
                     else:
